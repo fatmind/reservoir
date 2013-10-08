@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+
+# eclipse auto create file # 
+.classpath
+.project
+.settings/
