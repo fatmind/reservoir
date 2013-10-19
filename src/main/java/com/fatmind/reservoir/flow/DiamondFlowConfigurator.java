@@ -1,11 +1,19 @@
 package com.fatmind.reservoir.flow;
 
-import java.util.Map;
 
 public class DiamondFlowConfigurator implements FlowConfigurator {
 
-	public Map<String, FlowEntry> init() throws Exception {
+	@Override
+	public FlowEntry getFlowEntry(String key) {
 		return null;
 	}
 
+	@Override
+	public boolean isRefuse(String from) {
+		return false;
+	}
+
+	
+
+	
 }

@@ -1,7 +1,5 @@
 package com.fatmind.reservoir.flow;
 
-import java.util.List;
-import java.util.Map;
 
 /**
  * 流控配置器
@@ -10,16 +8,17 @@ import java.util.Map;
 public interface FlowConfigurator {
 	
 	/**
-	 * 初始化流控入口配置
-	 * @return Map<String, FlowEntry>
-	 * @throws Exception
+	 * 根据Key获取FlowEntry
+	 * @param key
+	 * @return FlowEntry
 	 */
-	public Map<String, FlowEntry> initFlowEntry() throws Exception;
+	public FlowEntry getFlowEntry(String key);
 	
 	/**
-	 * 
-	 * @return
+	 * 根据来源判断, 是否拒绝服务	 //TODO 方法名待商榷
+	 * @param from
+	 * @return boolean
 	 */
-	public List<String> getFlowBlackName();
+	public boolean isRefuse(String from);
 	
 }

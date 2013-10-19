@@ -1,10 +1,11 @@
 package com.fatmind.reservoir.flow;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 流控入口 
+ * 流控入口 . //XXX add 关联流控
  * @author fatmind
  */
 public class FlowEntry {
@@ -16,19 +17,24 @@ public class FlowEntry {
 	/**
 	 * 阈值
 	 */
-	private String threshold;
+	private int threshold;
+	/**
+	 * 黑名单
+	 */
+	private List<String> blackNames = new ArrayList<String>();
 	/**
 	 * 计数器
 	 */
-	private AtomicInteger counter;
+	private AtomicInteger counter = new AtomicInteger(0);
 	/**
-	 * 流控处理器
+	 * 处理器. 默认处理器返回Null
 	 */
-	private FlowSolver flowSolver;
+	private FlowPostHandler handler = new DefaultFlowPostHandler();
 	/**
-	 * 关联入口，共同决定是否流控
+	 * 流控策略.
 	 */
-	private List<FlowEntry> relationEntry;
+	private FlowStrategy flowStrategy = new DefaultFlowStrategy();
+	
 	
 	
 	public String getKey() {
@@ -37,31 +43,32 @@ public class FlowEntry {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	public String getThreshold() {
+	public int getThreshold() {
 		return threshold;
 	}
-	public void setThreshold(String threshold) {
+	public void setThreshold(int threshold) {
 		this.threshold = threshold;
+	}
+	public List<String> getBlackNames() {
+		return blackNames;
+	}
+	public void setBlackNames(List<String> blackNames) {
+		this.blackNames = blackNames;
 	}
 	public AtomicInteger getCounter() {
 		return counter;
 	}
-	public void setCounter(AtomicInteger counter) {
-		this.counter = counter;
+	public FlowPostHandler getHandler() {
+		return handler;
 	}
-	public FlowSolver getFlowSolver() {
-		return flowSolver;
+	public void setHandler(FlowPostHandler handler) {
+		this.handler = handler;
 	}
-	public void setFlowSolver(FlowSolver flowSolver) {
-		this.flowSolver = flowSolver;
+	public FlowStrategy getFlowStrategy() {
+		return flowStrategy;
 	}
-	public List<FlowEntry> getRelationEntry() {
-		return relationEntry;
-	}
-	public void setRelationEntry(List<FlowEntry> relationEntry) {
-		this.relationEntry = relationEntry;
-	}
-	
-	
+	public void setFlowStrategy(FlowStrategy flowStrategy) {
+		this.flowStrategy = flowStrategy;
+	} 
 	
 }
