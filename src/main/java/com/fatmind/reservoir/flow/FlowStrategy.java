@@ -1,15 +1,15 @@
 package com.fatmind.reservoir.flow;
 
 /**
- * Á÷¿Ø²ßÂÔ
+ * æµæ§ç­–ç•¥
  * @author fatmind
  */
 public interface FlowStrategy {
 
 	/**
-	 * ÊÇ·ñĞèÒªÁ÷¿Ø
+	 * æ˜¯å¦éœ€è¦æµæ§
 	 * @param flowEntry
-	 * @param from À´Ô´±êÊ¶
+	 * @param from æ¥æºæ ‡è¯†
 	 * @return boolean
 	 */
 	public boolean isNeedBlocked(FlowEntry flowEntry, String from);

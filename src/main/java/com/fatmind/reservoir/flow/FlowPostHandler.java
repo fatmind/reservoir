@@ -1,7 +1,7 @@
 package com.fatmind.reservoir.flow;
 
 /**
- * Á÷¿ØºóÖÃ´¦ÀíÆ÷. ÓÉÊ¹ÓÃÕß¶¨Òå±»Á÷¿Øºó£¬ÈçºÎ´¦Àí£¬Ä¬ÈÏ·µ»ØNull
+ * æµæ§åç½®å¤„ç†å™¨. ç”±ä½¿ç”¨è€…å®šä¹‰è¢«æµæ§åï¼Œå¦‚ä½•å¤„ç†ï¼Œé»˜è®¤è¿”å›Null
  * @author fatmind
  */
 public interface FlowPostHandler {

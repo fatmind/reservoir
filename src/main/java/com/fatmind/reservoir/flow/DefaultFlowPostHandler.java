@@ -1,7 +1,7 @@
 package com.fatmind.reservoir.flow;
 
 /**
- * 默认实现，仅返回NULL 
+ * 榛樿瀹炵幇锛屼粎杩斿洖NULL 
  * @author fatmind
  */
 public class DefaultFlowPostHandler implements FlowPostHandler {

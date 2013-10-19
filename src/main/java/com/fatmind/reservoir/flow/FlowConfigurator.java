@@ -2,20 +2,20 @@ package com.fatmind.reservoir.flow;
 
 
 /**
- * Á÷¿ØÅäÖÃÆ÷
+ * æµæ§é…ç½®å™¨
  * @author fatmind
  */
 public interface FlowConfigurator {
 	
 	/**
-	 * ¸ù¾İKey»ñÈ¡FlowEntry
+	 * æ ¹æ®Keyè·å–FlowEntry
 	 * @param key
 	 * @return FlowEntry
 	 */
 	public FlowEntry getFlowEntry(String key);
 	
 	/**
-	 * ¸ù¾İÀ´Ô´ÅĞ¶Ï, ÊÇ·ñ¾Ü¾ø·şÎñ	 //TODO ·½·¨Ãû´ıÉÌÈ¶
+	 * æ ¹æ®æ¥æºåˆ¤æ–­, æ˜¯å¦æ‹’ç»æœåŠ¡	 //TODO æ–¹æ³•åå¾…å•†æ¦·
 	 * @param from
 	 * @return boolean
 	 */

@@ -5,33 +5,33 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Á÷¿ØÈë¿Ú . //XXX add ¹ØÁªÁ÷¿Ø
+ * æµæ§å…¥å£ . //XXX add å…³è”æµæ§
  * @author fatmind
  */
 public class FlowEntry {
 	
 	/**
-	 * ¾ßÌåµ¥¸öÁ÷¿ØµãÎ¨Ò»±êÊ¶		//TODO ¿¼ÂÇ£ºÄ¬ÈÏ¹æÔò + ÓÃ»§ÊäÈë
+	 * å…·ä½“å•ä¸ªæµæ§ç‚¹å”¯ä¸€æ ‡è¯†		//TODO è€ƒè™‘ï¼šé»˜è®¤è§„åˆ™ + ç”¨æˆ·è¾“å…¥
 	 */
 	private String key;
 	/**
-	 * ãĞÖµ
+	 * é˜ˆå€¼
 	 */
 	private int threshold;
 	/**
-	 * ºÚÃûµ¥
+	 * é»‘åå•
 	 */
 	private List<String> blackNames = new ArrayList<String>();
 	/**
-	 * ¼ÆÊıÆ÷
+	 * è®¡æ•°å™¨
 	 */
 	private AtomicInteger counter = new AtomicInteger(0);
 	/**
-	 * ´¦ÀíÆ÷. Ä¬ÈÏ´¦ÀíÆ÷·µ»ØNull
+	 * å¤„ç†å™¨. é»˜è®¤å¤„ç†å™¨è¿”å›Null
 	 */
 	private FlowPostHandler handler = new DefaultFlowPostHandler();
 	/**
-	 * Á÷¿Ø²ßÂÔ.
+	 * æµæ§ç­–ç•¥.
 	 */
 	private FlowStrategy flowStrategy = new DefaultFlowStrategy();
 	

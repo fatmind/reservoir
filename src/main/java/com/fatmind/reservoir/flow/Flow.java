@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Á÷¿Ø
+ * æµæ§
  * @author fatmind
  */
 @Retention(RetentionPolicy.RUNTIME)

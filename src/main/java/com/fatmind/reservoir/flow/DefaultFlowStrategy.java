@@ -1,7 +1,7 @@
 package com.fatmind.reservoir.flow;
 
 /**
- * Ä¬ÈÏÁ÷¿Ø²ßÂÔ. 1.ÊôÓÚºÚÃûµ¥ÔòÁ÷¿Ø    2.³¬¹ýãÐÖµÔòÁ÷¿Ø
+ * é»˜è®¤æµæŽ§ç­–ç•¥. 1.å±žäºŽé»‘åå•åˆ™æµæŽ§    2.è¶…è¿‡é˜ˆå€¼åˆ™æµæŽ§
  * @author fatmind
  */
 public class DefaultFlowStrategy implements FlowStrategy {
@@ -10,7 +10,7 @@ public class DefaultFlowStrategy implements FlowStrategy {
 	public boolean isNeedBlocked(FlowEntry flowEntry, String from) {
 		
 		/*
-		 * ÈôÊôÓÚºÚÃûµ¥£¬ÐèÒªÁ÷¿Ø
+		 * è‹¥å±žäºŽé»‘åå•ï¼Œéœ€è¦æµæŽ§
 		 */
 		if(flowEntry.getBlackNames() != null 
 				&& flowEntry.getBlackNames().contains(from)) {
@@ -18,7 +18,7 @@ public class DefaultFlowStrategy implements FlowStrategy {
 		}
 		
 		/*
-		 * ÈôÀÛ¼Æ´¦ÀíÖÐÇëÇóÁ¿³¬¹ýãÐÖµ£¬ÐèÒªÁ÷¿Ø
+		 * è‹¥ç´¯è®¡å¤„ç†ä¸­è¯·æ±‚é‡è¶…è¿‡é˜ˆå€¼ï¼Œéœ€è¦æµæŽ§
 		 */
 		if(flowEntry.getCounter().get() > flowEntry.getThreshold()) {
 			return true;

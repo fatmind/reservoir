@@ -14,7 +14,7 @@ public class FlowInterceptor {
 	private Logger log = Logger.getLogger(FlowInterceptor.class);
 	
 	/**
-	 * Á÷¿ØÅäÖÃÆ÷
+	 * æµæ§é…ç½®å™¨
 	 */
 	private FlowConfigurator flowConfigurator;
 	
@@ -31,7 +31,7 @@ public class FlowInterceptor {
 			key = method.getDeclaringClass().getName() +  "." + method.getName();
 		}
 		
-		String from = null;	//FIXME ÈçºÎ»ñÈ¡from²ÎÊı
+		String from = null;	//FIXME å¦‚ä½•è·å–fromå‚æ•°
 		if(flowConfigurator.isRefuse(from)) {
 			log.info("refuse service, from = " + from);
 			return null;
@@ -44,14 +44,14 @@ public class FlowInterceptor {
 		}
 		
 		/*
-		 * ÈôĞèÁ÷¿Ø£¬½»ÓÉºóÖÃ´¦ÀíÆ÷´¦Àí
+		 * è‹¥éœ€æµæ§ï¼Œäº¤ç”±åç½®å¤„ç†å™¨å¤„ç†
 		 */
 		if(flowEntry.getFlowStrategy().isNeedBlocked(flowEntry, from)) {
 			log.info("req is blocked, key = " + key);
 			return flowEntry.getHandler().handler(flowEntry);
 		} 
 		/*
-		 * ÈôÎŞĞèÁ÷¿Ø£¬¼ÆÊıºÍµ÷ÓÃÔ­Ê¼·½·¨
+		 * è‹¥æ— éœ€æµæ§ï¼Œè®¡æ•°å’Œè°ƒç”¨åŸå§‹æ–¹æ³•
 		 */
 		else {
 			flowEntry.getCounter().getAndIncrement();
