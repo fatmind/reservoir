@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 流控入口 . //XXX add 关联流控
+ * 流控入口 .
  * @author fatmind
  */
 public class FlowEntry {
 	
 	/**
-	 * 具体单个流控点唯一标识		//TODO 考虑：默认规则 + 用户输入
+	 * 具体单个流控点唯一标识	
 	 */
 	private String key;
 	/**
