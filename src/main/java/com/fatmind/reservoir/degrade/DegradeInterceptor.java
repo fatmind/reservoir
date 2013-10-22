@@ -18,7 +18,7 @@ import org.aspectj.lang.annotation.Aspect;
 public class DegradeInterceptor implements MethodInterceptor {
 
 	private DegradeConfigurator configurator;
-	private Statistics statistics;
+	private StatisticsScheduler statistics;
 	
 	@Override
 	public Object invoke(MethodInvocation arg) throws Throwable {
@@ -46,16 +46,12 @@ public class DegradeInterceptor implements MethodInterceptor {
 			return method.invoke(obj, args);
 		}
 		
-		TrackDO track = new TrackDO();
 		long startTime = System.currentTimeMillis();
+		boolean execRes = true;
 		try {
 			return method.invoke(obj, args);
-		} catch (Throwable e) {
-			track.setSuccess(false);	//TODO 是否失败判断允许扩展
 		} finally {
-			track.setRt(System.currentTimeMillis() - startTime);
-			statistics.addTrack(track);
+			statistics.track(degradeEntry, System.currentTimeMillis() - startTime, execRes);
 		}
-		return null;
 	}
 }

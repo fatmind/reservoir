@@ -1,4 +1,4 @@
-package com.fatmind.reservoir.flow.example;
+package com.fatmind.reservoir.flow.example.flow;
 
 import com.fatmind.reservoir.flow.FlowConfigurator;
 import com.fatmind.reservoir.flow.FlowEntry;
