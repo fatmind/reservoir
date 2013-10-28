@@ -21,15 +21,16 @@ public class Counter {
 	 */
 	private AtomicLong fail;
 
-	/**
-	 * 30分钟统计数据
-	 */
-	private Queue<Statistics> thirtyMin = new ArrayDeque<Statistics>();
 	
 	/**
 	 * 累积容量
 	 */
 	private static final int CPACITY = 6;
+	
+	/**
+	 * 30分钟统计数据
+	 */
+	private Queue<Statistics> thirtyMin = new ArrayDeque<Statistics>(CPACITY);
 	
 	
 	/**

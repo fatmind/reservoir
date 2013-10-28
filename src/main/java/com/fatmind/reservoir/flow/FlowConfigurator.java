@@ -1,24 +1,14 @@
 package com.fatmind.reservoir.flow;
 
+import com.fatmind.reservoir.Configurator;
 
-/**
- * 流控配置器
- * @author fatmind
- */
-public interface FlowConfigurator {
+public interface FlowConfigurator extends Configurator<FlowEntry> {
 	
 	/**
-	 * 根据Key获取FlowEntry
-	 * @param key
-	 * @return FlowEntry
-	 */
-	public FlowEntry getFlowEntry(String key);
-	
-	/**
-	 * 根据来源判断, 是否拒绝服务	 //TODO 方法名待商榷
+	 * 根据From判断是否拒绝服务
 	 * @param from
 	 * @return boolean
 	 */
-	public boolean isRefuse(String from);
+	public boolean isReject(String from);
 	
 }

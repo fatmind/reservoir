@@ -3,15 +3,16 @@ package com.fatmind.reservoir.flow;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Aspect
 public class FlowInterceptor {
 	
-	private Logger log = Logger.getLogger(FlowInterceptor.class);
+	private static Logger log = LoggerFactory.getLogger(FlowInterceptor.class);
 	
 	/**
 	 * 流控配置器
@@ -31,13 +32,13 @@ public class FlowInterceptor {
 			key = method.getDeclaringClass().getName() +  "." + method.getName();
 		}
 		
-		String from = null;	//FIXME 如何获取from参数
-		if(flowConfigurator.isRefuse(from)) {
-			log.info("refuse service, from = " + from);
+		String from = null; 	//TODO 如何获取 ？
+		if(flowConfigurator.isReject(from)) {
+			log.info("invoker is reject, from = " + from);
 			return null;
 		}
 		
-		FlowEntry flowEntry = flowConfigurator.getFlowEntry(key);
+		FlowEntry flowEntry = flowConfigurator.getEntry(key);
 		if(flowEntry == null) {
 			log.info("dont find maping flow entry, key = " + key);
 			return joinPoint.proceed(joinPoint.getArgs());
@@ -64,9 +65,9 @@ public class FlowInterceptor {
 		}
 	}
 
+
 	public void setFlowConfigurator(FlowConfigurator flowConfigurator) {
 		this.flowConfigurator = flowConfigurator;
 	}
-	
 	
 }

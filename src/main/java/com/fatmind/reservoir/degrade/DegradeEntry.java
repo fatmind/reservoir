@@ -23,15 +23,19 @@ public class DegradeEntry {
 	private double failureRate = 0.8;
 	
 	/**
-	 * 服务降级后置处理器
-	 */
-	private DegradePostHandler postHandler;
-	
-	/**
 	 * 是否降级
 	 */
 	private boolean degrade = false;
 	
+	/**
+	 * 服务降级后置处理器
+	 */
+	private DegradePostHandler postHandler = new DefaultDegradePostHandler();
+	
+	/**
+	 * 计数器
+	 */
+	private Counter counter = new Counter();
 	
 	
 	public boolean isDegrade() {
@@ -69,6 +73,12 @@ public class DegradeEntry {
 	}
 	public void setPostHandler(DegradePostHandler postHandler) {
 		this.postHandler = postHandler;
+	}
+	public Counter getCounter() {
+		return counter;
+	}
+	public void setCounter(Counter counter) {
+		this.counter = counter;
 	}
 	
 }

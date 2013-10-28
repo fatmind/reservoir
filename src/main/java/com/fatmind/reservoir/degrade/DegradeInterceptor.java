@@ -9,6 +9,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+import com.fatmind.reservoir.Configurator;
+
 /**
  * 服务降级拦截器. 支持：annotation与beanname 
  * @author bohan.sj
@@ -17,8 +19,13 @@ import org.aspectj.lang.annotation.Aspect;
 @Aspect
 public class DegradeInterceptor implements MethodInterceptor {
 
-	private DegradeConfigurator configurator;
+	private Configurator<DegradeEntry> configurator;
 	private StatisticsScheduler statistics;
+	
+	public DegradeInterceptor(Configurator<DegradeEntry> configurator, StatisticsScheduler statistics) {
+		this.configurator = configurator;
+		this.statistics = statistics;
+	}
 	
 	@Override
 	public Object invoke(MethodInvocation arg) throws Throwable {
@@ -51,7 +58,20 @@ public class DegradeInterceptor implements MethodInterceptor {
 		try {
 			return method.invoke(obj, args);
 		} finally {
-			statistics.track(degradeEntry, System.currentTimeMillis() - startTime, execRes);
+			track(degradeEntry, System.currentTimeMillis() - startTime, execRes);
 		}
+	}
+	
+	/**
+	 * 记录单次数据
+	 * @param degradeEntry
+	 * @param rt
+	 * @param execRes
+	 */
+	public void track(DegradeEntry degradeEntry, long rt, boolean execRes) {
+		Counter counter = degradeEntry.getCounter();
+		counter.getReq().incrementAndGet();
+		counter.getRt().addAndGet(rt);
+		if(!execRes) counter.getFail().incrementAndGet(); 
 	}
 }

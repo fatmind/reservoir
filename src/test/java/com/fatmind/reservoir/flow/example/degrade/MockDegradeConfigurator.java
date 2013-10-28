@@ -1,9 +1,11 @@
 package com.fatmind.reservoir.flow.example.degrade;
 
-import com.fatmind.reservoir.degrade.DegradeConfigurator;
+import java.util.List;
+
+import com.fatmind.reservoir.Configurator;
 import com.fatmind.reservoir.degrade.DegradeEntry;
 
-public class MockDegradeConfigurator implements DegradeConfigurator {
+public class MockDegradeConfigurator implements Configurator<DegradeEntry> {
 
 	@Override
 	public DegradeEntry getEntry(String key) {
@@ -11,6 +13,11 @@ public class MockDegradeConfigurator implements DegradeConfigurator {
 		degradeEntry.setRt(150);
 		degradeEntry.setFailureRate(0.8);
 		return degradeEntry;
+	}
+
+	@Override
+	public List<DegradeEntry> getEntries() {
+		return null;
 	}
 
 }
