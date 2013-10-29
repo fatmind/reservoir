@@ -45,6 +45,7 @@
 				<version>2.5.6.SEC03</version>
 			</dependency>
 
+			<!-- 依赖是不合理，当时为了省事，不用单个依赖 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>

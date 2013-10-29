@@ -17,7 +17,7 @@ import org.aspectj.lang.annotation.Aspect;
 import com.fatmind.reservoir.Configurator;
 
 /**
- * 服务降级拦截器. 支持：annotation与beanname 
+ * 服务降级拦截器. 支持：annotation与beanname/beantype 
  * @author bohan.sj
  */
 
