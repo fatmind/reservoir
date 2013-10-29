@@ -12,12 +12,12 @@
 	 
 	<aop:aspectj-autoproxy/>
 	
-	<bean id="mockFlowConfigurator" class="com.fatmind.reservoir.example.flow.MockFlowConfigurator" />
+	<bean id="mockDegradeConfigurator" class="com.fatmind.reservoir.flow.example.degrade.MockDegradeConfigurator" />
 	
-	<bean id="flowInterceptor" class="com.fatmind.reservoir.flow.FlowInterceptor">
-		<property name="flowConfigurator" ref="mockFlowConfigurator" />
+	<bean id="degradeInterceptor" class="com.fatmind.reservoir.degrade.DegradeInterceptor">
+		<property name="configurator" ref="mockDegradeConfigurator" />
 	</bean>
 	
-	<bean id="itemService" class="com.fatmind.reservoir.example.flow.ItemService" />
+	<bean id="auctionService" class="com.fatmind.reservoir.flow.example.degrade.AuctionService" />
 	
 </beans>

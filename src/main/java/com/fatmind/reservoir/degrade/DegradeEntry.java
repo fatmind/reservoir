@@ -1,5 +1,7 @@
 package com.fatmind.reservoir.degrade;
 
+import com.fatmind.reservoir.PostHandler;
+
 public class DegradeEntry {
 	
 	/**
@@ -30,7 +32,7 @@ public class DegradeEntry {
 	/**
 	 * 服务降级后置处理器
 	 */
-	private DegradePostHandler postHandler = new DefaultDegradePostHandler();
+	private PostHandler<DegradeEntry> postHandler = new DefaultDegradePostHandler();
 	
 	/**
 	 * 计数器
@@ -68,10 +70,10 @@ public class DegradeEntry {
 	public void setFailureRate(double failureRate) {
 		this.failureRate = failureRate;
 	}
-	public DegradePostHandler getPostHandler() {
+	public PostHandler<DegradeEntry> getPostHandler() {
 		return postHandler;
 	}
-	public void setPostHandler(DegradePostHandler postHandler) {
+	public void setPostHandler(PostHandler<DegradeEntry> postHandler) {
 		this.postHandler = postHandler;
 	}
 	public Counter getCounter() {

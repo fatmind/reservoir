@@ -1,6 +1,11 @@
 package com.fatmind.reservoir.degrade;
 
 import java.lang.reflect.Method;
+import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -21,10 +26,11 @@ public class DegradeInterceptor implements MethodInterceptor {
 
 	private Configurator<DegradeEntry> configurator;
 	private StatisticsScheduler statistics;
+	private Knocker knocker = new Knocker();
 	
-	public DegradeInterceptor(Configurator<DegradeEntry> configurator, StatisticsScheduler statistics) {
+	public DegradeInterceptor(Configurator<DegradeEntry> configurator) {
 		this.configurator = configurator;
-		this.statistics = statistics;
+		this.statistics = new StatisticsScheduler(configurator);
 	}
 	
 	@Override
@@ -45,7 +51,7 @@ public class DegradeInterceptor implements MethodInterceptor {
 		Degrade degrade = method.getAnnotation(Degrade.class);
 		String key = degrade.key();
 		if(StringUtils.isBlank(key)) {
-			key = method.getDeclaringClass().getName() +  "." + method.getName();
+			key = method.getDeclaringClass().getName() +  "." + method.getName();	//TODO 考虑模仿log4j package继承，简化配置
 		}
 		
 		DegradeEntry degradeEntry = configurator.getEntry(key);
@@ -53,10 +59,26 @@ public class DegradeInterceptor implements MethodInterceptor {
 			return method.invoke(obj, args);
 		}
 		
+		if(degradeEntry.isOff()) {
+			return degradeEntry.getPostHandler().handler(degradeEntry);
+		}
+		
+		if(degradeEntry.isDegrade()) {
+			knocker.tryKnock(degradeEntry, method, obj, args);
+			return degradeEntry.getPostHandler().handler(degradeEntry);
+		}
+		
+		return invoke(degradeEntry, method, obj, args);
+	}
+	
+	private Object invoke(DegradeEntry degradeEntry, Method m, Object obj, Object...args) throws Throwable {
 		long startTime = System.currentTimeMillis();
 		boolean execRes = true;
 		try {
-			return method.invoke(obj, args);
+			return m.invoke(obj, args);
+		} catch (Throwable e) {	//TODO 允许用户自定义判断
+			execRes = false;
+			throw e;
 		} finally {
 			track(degradeEntry, System.currentTimeMillis() - startTime, execRes);
 		}
@@ -74,4 +96,33 @@ public class DegradeInterceptor implements MethodInterceptor {
 		counter.getRt().addAndGet(rt);
 		if(!execRes) counter.getFail().incrementAndGet(); 
 	}
+	
+	/**
+	 * 当服务被降级后，随机实际去请求后端，实现服务自动恢复
+	 * @author fatmind
+	 */
+	class Knocker {
+		
+		private BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1000);
+	 	private ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 5, 60, TimeUnit.MINUTES, queue);
+	 	private Random random = new Random();
+	 	
+		public void tryKnock(final DegradeEntry degradeEntry, 
+				final Method m, final Object obj, final Object...args) {
+			int luckyNum = random.nextInt(100);
+			if(luckyNum >= 99) {	// 默认仅释放1%流量
+				executor.submit(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							invoke(degradeEntry, m, obj, args);
+						} catch (Throwable e) {
+							// ingore all exception
+						}
+					}
+				});
+			}
+		}
+	}
+	
 }

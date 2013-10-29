@@ -46,6 +46,8 @@ public class Counter {
 		
 		if(thirtyMin.size() == CPACITY) thirtyMin.poll();
 		thirtyMin.add(statistics);
+		
+		reset(); 	// 每统计一次后，清空当前计数
 	}
 	
 	/**
@@ -102,6 +104,30 @@ public class Counter {
 		this.fail = fail;
 	}
 
-	
+	class Statistics {
+		
+		/**
+		 * 失败率
+		 */
+		private double failRate;
+		/**
+		 * 平均RT
+		 */
+		private long avgRt;
+		
+		
+		public double getFailRate() {
+			return failRate;
+		}
+		public void setFailRate(double failRate) {
+			this.failRate = failRate;
+		}
+		public long getAvgRt() {
+			return avgRt;
+		}
+		public void setAvgRt(long avgRt) {
+			this.avgRt = avgRt;
+		}
+	}
 	
 }

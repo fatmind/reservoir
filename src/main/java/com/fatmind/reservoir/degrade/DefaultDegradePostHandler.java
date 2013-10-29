@@ -1,12 +1,16 @@
 package com.fatmind.reservoir.degrade;
 
-public class DefaultDegradePostHandler implements DegradePostHandler {
+import com.fatmind.reservoir.PostHandler;
+
+/**
+ * 默认实现，仅返回Null
+ * @author fatmind
+ */
+public class DefaultDegradePostHandler implements PostHandler<DegradeEntry> {
 
 	@Override
 	public Object handler(DegradeEntry degradeEntry) {
 		return null;
 	}
-	
-	
 
 }

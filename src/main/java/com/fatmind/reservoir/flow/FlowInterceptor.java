@@ -29,7 +29,7 @@ public class FlowInterceptor {
 		Flow flowInterceptor = method.getAnnotation(com.fatmind.reservoir.flow.Flow.class);
 		String key = flowInterceptor.key();
 		if(StringUtils.isBlank(key)) {
-			key = method.getDeclaringClass().getName() +  "." + method.getName();
+			key = method.getDeclaringClass().getName() +  "." + method.getName(); 	//TODO 考虑模仿log4j package继承，简化配置
 		}
 		
 		String from = null; 	//TODO 如何获取 ？

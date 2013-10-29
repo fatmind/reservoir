@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.fatmind.reservoir.PostHandler;
+
 /**
  * 流控入口 .
  * @author fatmind
@@ -29,7 +31,7 @@ public class FlowEntry {
 	/**
 	 * 处理器. 默认处理器返回Null
 	 */
-	private FlowPostHandler handler = new DefaultFlowPostHandler();
+	private PostHandler<FlowEntry> handler = new DefaultFlowPostHandler();
 	/**
 	 * 流控策略.
 	 */
@@ -58,10 +60,10 @@ public class FlowEntry {
 	public AtomicInteger getCounter() {
 		return counter;
 	}
-	public FlowPostHandler getHandler() {
+	public PostHandler<FlowEntry> getHandler() {
 		return handler;
 	}
-	public void setHandler(FlowPostHandler handler) {
+	public void setHandler(PostHandler<FlowEntry> handler) {
 		this.handler = handler;
 	}
 	public FlowStrategy getFlowStrategy() {

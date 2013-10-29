@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fatmind.reservoir.Configurator;
+import com.fatmind.reservoir.degrade.Counter.Statistics;
 
 
 /**
@@ -46,7 +47,6 @@ public class StatisticsScheduler {
 					
 					Counter counter = e.getCounter();
 					counter.calculate();
-					counter.reset();	// 每统计一次后，清空当前计数
 					
 					Statistics statistics = counter.thirtyMinStatistics();
 					if(e.getRt() < statistics.getAvgRt() || e.getFailureRate() < statistics.getFailRate()) {

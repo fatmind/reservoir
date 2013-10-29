@@ -1,4 +1,4 @@
-package com.fatmind.reservoir.flow.example.degrade;
+package com.fatmind.reservoir.example.degrade;
 
 public class TestMain {
 

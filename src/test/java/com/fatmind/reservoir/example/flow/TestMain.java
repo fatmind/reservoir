@@ -1,4 +1,4 @@
-package com.fatmind.reservoir.flow.example.flow;
+package com.fatmind.reservoir.example.flow;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
